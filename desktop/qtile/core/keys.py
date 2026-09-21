@@ -9,6 +9,29 @@ from .groups import WORKSPACE_NAMES
 
 MOD = "mod4"
 
+
+@lazy.function
+def cycle_occupied_groups(qtile, step: int) -> None:
+    """Cycle through normal workspaces that currently contain windows."""
+    occupied = [
+        group
+        for group in qtile.groups
+        if group.name in WORKSPACE_NAMES and group.windows
+    ]
+
+    if not occupied:
+        return
+
+    current = qtile.current_group
+    if current not in occupied:
+        target = occupied[0] if step > 0 else occupied[-1]
+    else:
+        index = occupied.index(current)
+        target = occupied[(index + step) % len(occupied)]
+
+    target.toscreen()
+
+
 keys = [
     # Applications
     Key([MOD], "Return", lazy.spawn(TERMINAL), desc="Terminal"),
@@ -21,6 +44,10 @@ keys = [
     Key([MOD], "Up", lazy.layout.up(), desc="Focus up"),
     Key([MOD], "Down", lazy.layout.down(), desc="Focus down"),
     Key([MOD], "Tab", lazy.next_layout(), desc="Next layout"),
+
+    # Cycle only through occupied workspaces
+    Key([MOD], "bracketright", cycle_occupied_groups(1), desc="Next occupied workspace"),
+    Key([MOD], "bracketleft", cycle_occupied_groups(-1), desc="Previous occupied workspace"),
 
     # Move windows
     Key([MOD, "shift"], "Left", lazy.layout.shuffle_left(), desc="Move left"),
