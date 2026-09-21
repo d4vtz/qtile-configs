@@ -9,6 +9,16 @@ from libqtile.layout.base import _SimpleLayoutBase
 
 
 class CenterMaster(_SimpleLayoutBase):
+    ratio: float
+    two_ratio: float
+    min_ratio: float
+    max_ratio: float
+    ratio_increment: float
+    new_client_position: str
+    border_focus: str
+    border_normal: str
+    border_width: int
+    margin: int
     """Centered master with balanced left and right stacks.
 
     Client zero remains master. With two clients the master uses the left side.
@@ -36,14 +46,21 @@ class CenterMaster(_SimpleLayoutBase):
         self._default_ratio = self.ratio
         self._default_two_ratio = self.two_ratio
 
-    def add_client(self, client: Window) -> None:
+    def add_client(
+        self,
+        client: Window,
+        offset_to_current: int = 0,
+        client_position: str | None = None,
+    ) -> None:
         """Keep the first client as master and add new clients as secondary."""
         if not self.clients:
             self.clients.append(client)
-        elif self.new_client_position == "top":
-            self.clients.insert(1, client)
         else:
-            self.clients.append(client)
+            position = client_position or self.new_client_position
+            if position == "top":
+                self.clients.add_client(client, offset_to_current=1, client_position="top")
+            else:
+                self.clients.append(client)
         self.clients.current_client = client
 
     def _roles(self) -> tuple[Window | None, list[Window], list[Window]]:
@@ -114,7 +131,7 @@ class CenterMaster(_SimpleLayoutBase):
     def _column(self, client: Window) -> tuple[str, list[Window]]:
         master, left, right = self._roles()
         if client is master:
-            return "master", [client]
+            return "master", [client] if client is not None else []
         if client in left:
             return "left", left
         return "right", right
@@ -182,15 +199,16 @@ class CenterMaster(_SimpleLayoutBase):
     def swap_main(self) -> None:
         """Promote the focused secondary window to master."""
         current = self.clients.current_client
-        if current is None or not self.clients or current is self.clients[0]:
+        master, _, _ = self._roles()
+        if current is None or master is None or current is master:
             return
-        self._swap_clients(current, self.clients[0])
+        self._swap_clients(current, master)
 
     def _move_between_stacks(self, destination: str) -> None:
         current = self.clients.current_client
-        if current is None or current is self.clients[0] or len(self.clients) < 3:
+        master, left, right = self._roles()
+        if current is None or master is None or current is master or len(self.clients) < 3:
             return
-        _, left, right = self._roles()
         source = left if current in left else right
         target = right if destination == "right" else left
         if source is target:
@@ -218,7 +236,8 @@ class CenterMaster(_SimpleLayoutBase):
 
     def _shuffle_vertical(self, direction: int) -> None:
         current = self.clients.current_client
-        if current is None or current is self.clients[0]:
+        master, _, _ = self._roles()
+        if current is None or master is None or current is master:
             return
         _, stack = self._column(current)
         if len(stack) < 2:
