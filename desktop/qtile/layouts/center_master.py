@@ -209,9 +209,11 @@ class CenterMaster(_SimpleLayoutBase):
         master, left, right = self._roles()
         if current is None or master is None or current is master or len(self.clients) < 3:
             return
-        source = left if current in left else right
-        target = right if destination == "right" else left
-        if source is target:
+        in_left = current in left
+        moving_right = destination == "right"
+        if in_left == moving_right:
+            target = right if moving_right else left
+        else:
             return
         if target:
             other = self._closest_vertical(current, target)
