@@ -2,6 +2,7 @@ from libqtile import layout
 from libqtile.config import Match
 
 from desktop.appearance import BORDER_WIDTH, COLORS, GAP
+from .center_master import CenterMaster
 
 layout_theme = {
     "border_width": BORDER_WIDTH,
@@ -11,6 +12,7 @@ layout_theme = {
 }
 
 layouts = [
+    CenterMaster(**layout_theme),
     layout.MonadTall(
         **layout_theme,
         ratio=0.58,
