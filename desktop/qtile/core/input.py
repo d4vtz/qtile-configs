@@ -7,7 +7,7 @@ wl_input_rules = {
         tap=True,
         drag=True,
         dwt=True,
-        natural_scroll=True,
+        natural_scroll=False,
         scroll_method="two_finger",
         click_method="clickfinger",
     ),
