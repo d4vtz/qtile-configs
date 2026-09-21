@@ -2,6 +2,7 @@ from libqtile import layout
 from libqtile.config import Match
 
 from desktop.appearance import BORDER_WIDTH, COLORS, GAP
+from desktop.qtile.core.rules import FLOAT_RULES
 from .center_master import CenterMaster
 
 layout_theme = {
@@ -45,7 +46,6 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),
         Match(title="branchdialog"),
         Match(title="pinentry"),
-        Match(wm_class="pavucontrol"),
-        Match(wm_class="blueman-manager"),
+        *FLOAT_RULES,
     ],
 )
