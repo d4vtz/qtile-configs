@@ -1,0 +1,10 @@
+[Unit]
+Description=KDE PolicyKit authentication agent
+PartOf=qtile-session.target
+After=qtile-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/lib/polkit-kde-authentication-agent-1
+Restart=on-failure
+RestartSec=2
