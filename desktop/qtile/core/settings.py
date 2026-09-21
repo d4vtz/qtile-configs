@@ -1,7 +1,9 @@
 """Behaviour that applies to the compositor as a whole."""
 
+from typing import Any
+
 dgroups_key_binder = None
-dgroups_app_rules = []
+dgroups_app_rules: list[Any] = []
 
 follow_mouse_focus = True
 bring_front_click = "floating_only"
