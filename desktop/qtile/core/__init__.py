@@ -1,0 +1,1 @@
+"""Core Qtile configuration primitives."""
