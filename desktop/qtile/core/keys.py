@@ -54,6 +54,7 @@ keys = [
     Key([MOD, "shift"], "Right", lazy.layout.shuffle_right(), desc="Move right"),
     Key([MOD, "shift"], "Up", lazy.layout.shuffle_up(), desc="Move up"),
     Key([MOD, "shift"], "Down", lazy.layout.shuffle_down(), desc="Move down"),
+    Key([MOD, "shift"], "Return", lazy.layout.swap_main(), desc="Promote to master"),
 
     # Resize
     Key([MOD, "control"], "Left", lazy.layout.grow_left(), desc="Grow left"),
