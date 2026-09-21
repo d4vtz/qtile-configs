@@ -23,7 +23,6 @@ def make_bar() -> bar.Bar:
                 urgent_border=DRACULA["red"],
                 disable_drag=True,
             ),
-            widget.CurrentLayoutIcon(scale=0.65),
             widget.CurrentLayout(),
             widget.Spacer(),
             widget.WindowName(max_chars=60),
