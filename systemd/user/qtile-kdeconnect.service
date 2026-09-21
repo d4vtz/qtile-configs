@@ -1,0 +1,10 @@
+[Unit]
+Description=KDE Connect daemon
+PartOf=qtile-session.target
+After=qtile-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/kdeconnectd
+Restart=on-failure
+RestartSec=2
