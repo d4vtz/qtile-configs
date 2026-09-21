@@ -38,7 +38,6 @@ def make_bar() -> bar.Bar:
             widget.Volume(fmt="VOL {}"),
             widget.Battery(format="BAT {percent:2.0%}"),
             widget.Clock(format="%a %d %b  %H:%M"),
-            widget.StatusNotifier(),
         ],
         BAR_SIZE,
         background=COLORS["background"],
