@@ -1,18 +1,17 @@
-"""Qtile entry point.
+"""Qtile entry point for the desktop environment.
 
-Keep this file intentionally small. The actual configuration lives in the
-qtile_config package so components can evolve independently.
+Qtile requires these names at module scope. Implementation lives under the
+desktop.qtile package so this file stays a thin adapter.
 """
-from libqtile import hook
 
-from qtile_config.groups import groups
-from qtile_config.input import wl_input_rules
-from qtile_config.keys import keys
-from qtile_config.layouts import floating_layout, layouts
-from qtile_config.mouse import mouse
-from qtile_config.screens import extension_defaults, screens, widget_defaults
-from qtile_config.settings import (
+from desktop.qtile.core.groups import groups
+from desktop.qtile.core.input import wl_input_rules, wl_xcursor_size, wl_xcursor_theme
+from desktop.qtile.core.keys import keys
+from desktop.qtile.core.mouse import mouse
+from desktop.qtile.core.screens import extension_defaults, screens, widget_defaults
+from desktop.qtile.core.settings import (
     auto_fullscreen,
+    auto_minimize,
     bring_front_click,
     cursor_warp,
     dgroups_app_rules,
@@ -20,19 +19,18 @@ from qtile_config.settings import (
     focus_on_window_activation,
     follow_mouse_focus,
     reconfigure_screens,
+    screen_change_debounce_timeout,
     wmname,
 )
+from desktop.qtile.layouts import floating_layout, layouts
+from desktop.qtile.core import hooks as _hooks
 
 __all__ = [
     "keys", "groups", "layouts", "floating_layout", "screens", "mouse",
     "widget_defaults", "extension_defaults", "wl_input_rules",
-    "dgroups_key_binder", "dgroups_app_rules", "follow_mouse_focus",
-    "bring_front_click", "cursor_warp", "auto_fullscreen",
-    "focus_on_window_activation", "reconfigure_screens", "wmname",
+    "wl_xcursor_theme", "wl_xcursor_size", "dgroups_key_binder",
+    "dgroups_app_rules", "follow_mouse_focus", "bring_front_click",
+    "cursor_warp", "auto_fullscreen", "auto_minimize",
+    "focus_on_window_activation", "reconfigure_screens",
+    "screen_change_debounce_timeout", "wmname",
 ]
-
-
-@hook.subscribe.startup_once
-def _startup_once() -> None:
-    """Session services will later be managed by systemd --user."""
-    pass
