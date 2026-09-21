@@ -1,0 +1,1 @@
+"""Qtile compositor configuration."""
