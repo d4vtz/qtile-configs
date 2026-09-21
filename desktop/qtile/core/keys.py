@@ -46,8 +46,8 @@ keys = [
     Key([MOD], "Tab", lazy.next_layout(), desc="Next layout"),
 
     # Cycle only through occupied workspaces
-    Key([MOD], "bracketright", cycle_occupied_groups(1), desc="Next occupied workspace"),
-    Key([MOD], "bracketleft", cycle_occupied_groups(-1), desc="Previous occupied workspace"),
+    Key([MOD], "Page_Down", cycle_occupied_groups(1), desc="Next occupied workspace"),
+    Key([MOD], "Page_Up", cycle_occupied_groups(-1), desc="Previous occupied workspace"),
 
     # Move windows
     Key([MOD, "shift"], "Left", lazy.layout.shuffle_left(), desc="Move left"),
