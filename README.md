@@ -36,7 +36,6 @@ Base:
 - rofi
 - pipewire / wireplumber
 - brightnessctl
-- python-pyxdg (recomendado para StatusNotifier)
 - mypy (recomendado para qtile check)
 
 ## Funciones actuales
@@ -47,12 +46,12 @@ Base:
 - MonadTall, Columns y Max.
 - Ventanas flotantes y fullscreen.
 - Reglas flotantes para diálogos y utilidades.
-- Touchpad Wayland con tap, drag, disable-while-typing, scroll natural y dos dedos.
+- Touchpad Wayland con tap, drag, disable-while-typing y scroll de dos dedos.
 - Teclado latinoamericano.
 - Controles multimedia para PipeWire/WirePlumber.
 - Control de brillo.
 - Reconfiguración automática de pantallas.
-- Barra Qtile temporal con workspaces, layout, título, CPU, RAM, audio, batería, reloj y StatusNotifier.
+- Barra Qtile temporal con workspaces, layout, título, CPU, RAM, audio, batería y reloj.
 - Tema Dracula compartido como base visual.
 
 ## Atajos
@@ -71,7 +70,7 @@ Base:
 | Super + F | Fullscreen |
 | Super + Tab | Siguiente layout |
 | Super + grave | Scratchpad |
-| Super + Shift + Q | Cerrar ventana |
+| Super + Q | Cerrar ventana |
 | Super + Ctrl + R | Recargar Qtile |
 | Super + Ctrl + Shift + Q | Salir de Qtile |
 
@@ -85,8 +84,24 @@ Tras actualizar el repositorio, valida antes de recargar una sesión activa.
 
 ## Próximas capas
 
-1. CenterMaster nativo.
-2. Servicios de sesión mediante systemd --user.
-3. Shell Quickshell: barra, launcher, dashboard, notificaciones, clipboard, OSD y sesión.
-4. IPC entre Qtile, servicios y Quickshell.
-5. Integración visual y efectos del compositor.
+1. Shell Quickshell: barra, launcher, dashboard, notificaciones, clipboard, OSD y sesión.
+2. IPC entre Qtile, servicios y Quickshell.
+3. Integración visual y efectos del compositor.
+
+
+## Sesión systemd --user
+
+Los servicios persistentes viven en `systemd/user/` y se agrupan bajo
+`qtile-session.target`. Qtile importa el entorno Wayland/D-Bus al arrancar y
+activa el target una sola vez.
+
+Instalación inicial:
+
+```bash
+./scripts/install-user-services.sh
+```
+
+Después de instalar los enlaces, cierra la sesión gráfica y vuelve a entrar.
+Actualmente el target administra el agente PolicyKit de KDE, KDE Connect y
+Quickshell. Los servicios pueden deshabilitarse individualmente con
+`systemctl --user disable --now <unidad>`.
