@@ -66,7 +66,7 @@ keys = [
     # Window state
     Key([MOD], "f", lazy.window.toggle_fullscreen(), desc="Fullscreen"),
     Key([MOD], "v", lazy.window.toggle_floating(), desc="Floating"),
-    Key([MOD, "shift"], "q", lazy.window.kill(), desc="Close window"),
+    Key([MOD], "q", lazy.window.kill(), desc="Close window"),
     Key([MOD], "grave", lazy.group["scratchpad"].dropdown_toggle("terminal"), desc="Scratchpad"),
 
     # Qtile lifecycle
