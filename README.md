@@ -105,3 +105,27 @@ Después de instalar los enlaces, cierra la sesión gráfica y vuelve a entrar.
 Actualmente el target administra el agente PolicyKit de KDE, KDE Connect y
 Quickshell. Los servicios pueden deshabilitarse individualmente con
 `systemctl --user disable --now <unidad>`.
+
+
+## dqtile package
+
+The Qtile entry point is intentionally minimal: `config.py` imports the public API from `dqtile`.
+
+The package separates responsibilities into `core`, `layouts`, `theme`, `ui`, and `services`. During the migration, compatibility modules delegate to the existing `desktop.qtile` implementation so behaviour remains unchanged while modules can be moved incrementally without a flag day rewrite.
+
+```text
+dqtile/
+├── config.py
+├── core/
+├── layouts/
+├── services/
+├── theme/
+└── ui/
+```
+
+This keeps the existing desktop/session architecture and custom layouts while providing a stable package boundary for future widgets, services, themes and multi-monitor support.
+
+
+### Immediate-use profile
+
+The dqtile branch is now self-contained for daily work: 7 workspaces, CenterMaster as the primary layout, MonadTall/Columns/Max fallbacks, Dracula styling, top status bar, scratchpad terminal, media/brightness keys, screenshot and lock bindings, Wayland input defaults, floating rules and a systemd user-session target. Required companion tools are: `kitty rofi dolphin pipewire wireplumber brightnessctl grim slurp wl-clipboard checkupdates` (the last command is provided by `pacman-contrib`). Optional: `paru` for the update terminal action and a Nerd Font for the configured typography.
