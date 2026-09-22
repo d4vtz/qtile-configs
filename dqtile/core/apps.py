@@ -1,2 +1,15 @@
-"""Application and command registry."""
-from desktop.qtile.core.apps import *
+"""Applications and external commands."""
+
+TERMINAL = "kitty"
+LAUNCHER = "rofi -show drun"
+FILE_MANAGER = "dolphin"
+BROWSER = "google-chrome-stable"
+
+VOLUME_UP = "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+VOLUME_DOWN = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+VOLUME_MUTE = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+MIC_MUTE = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+BRIGHTNESS_UP = "brightnessctl set +5%"
+BRIGHTNESS_DOWN = "brightnessctl set 5%-"
+SCREENSHOT = "grim -g \"$(slurp)\" - | wl-copy"
+LOCK = "loginctl lock-session"
