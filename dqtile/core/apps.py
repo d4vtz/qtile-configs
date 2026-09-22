@@ -9,5 +9,5 @@ VOLUME_MUTE="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 MIC_MUTE="wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 BRIGHTNESS_UP="brightnessctl set +5%"
 BRIGHTNESS_DOWN="brightnessctl set 5%-"
-SCREENSHOT='grim -g "$(slurp)" - | wl-copy'
+SCREENSHOT='bash -lc \'grim -g "$(slurp)" - | wl-copy\''
 LOCK="loginctl lock-session"
